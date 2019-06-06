@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'personal';
 
   showAlert() {
-   alert('inside showAlert');
+    alert((new Date(2019, 5, 9)).getDay());
   }
 
 }

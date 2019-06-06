@@ -1,12 +1,7 @@
-img {
-    max-width: 100%;
-    max-height: 100%;
-    margin-top: 50px;
-}
 .mainContent {
     margin: 100px auto;
-    width: 500px;
-    height: 300px;
+    width: 600px;
+    height: 450px;
     background-color: yellow;
 }
 .outer{
@@ -15,13 +10,12 @@ img {
     margin-bottom: 10px;
     margin-left:auto;
     margin-right:auto;
-    width: 400px;
+    width: 500px;
 }
 .outer .triangle-right {
     display: none;
     float: right;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 125px;
     margin-right: -20px;
     border-top: 100px solid transparent;
 	border-left: 20px solid blue;
@@ -30,12 +24,11 @@ img {
 .outer .triangle-left {
     display: none;
     float: left;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 125px;
     margin-left: -20px;
     border-top: 100px solid transparent;
 	border-right: 20px solid blue;
-	border-bottom: 100px solid transparent;
+    border-bottom: 100px solid transparent;
 }
 .outer:hover .triangle-right { 
     display: block;
@@ -43,9 +36,12 @@ img {
 .outer:hover .triangle-left { 
       display: block;
 }
-.outer .imageContent{
-    margin-left: 35px;
-    width: 340px;
+
+.outer .content{
+    margin-left: 50px;
+    width: 400px;
     height: inherit;
     float: left;
+    text-align: center;
+    margin-top: 50px;
 }
