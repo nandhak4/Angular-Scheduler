@@ -30,10 +30,10 @@
 	border-right: 20px solid blue;
     border-bottom: 100px solid transparent;
 }
-.outer:hover .triangle-right { 
+.mainContent:hover .triangle-right { 
     display: block;
 }
-.outer:hover .triangle-left { 
+.mainContent:hover .triangle-left { 
       display: block;
 }
 
