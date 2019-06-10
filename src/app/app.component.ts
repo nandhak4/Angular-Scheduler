@@ -1,15 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CalendarSessionService } from './calendar-session.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'personal';
+export class AppComponent implements OnInit {
 
-  showAlert() {
-    alert((new Date(2019, 5, 9)).getDay());
+  constructor(private calendarSessionService: CalendarSessionService, private router: Router) {
+  }
+
+  ngOnInit() {
+    this.calendarSessionService.ShowCurrentMonth();
+  }
+
+  GetNext() {
+    this.calendarSessionService.GetNextMonth(this.calendarSessionService.PassedMonth);
+    this.router.navigate(['']);
+  }
+
+  GetPrevious() {
+    this.calendarSessionService.GetPreviousMonth(this.calendarSessionService.PassedMonth);
+    this.router.navigate(['']);
   }
 
 }

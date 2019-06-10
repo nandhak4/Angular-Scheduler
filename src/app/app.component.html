@@ -1,11 +1,11 @@
 <div class="mainContent">
     
   <div class="outer">
-    <div class="triangle-left"></div>
+    <div class="triangle-left" (click)="GetPrevious()"></div>
     <div class="content">
       <router-outlet></router-outlet>
     </div>
-    <div class="triangle-right" (click)="showAlert()"></div>
+    <div class="triangle-right" (click)="GetNext()"></div>
   </div>
     
 </div>

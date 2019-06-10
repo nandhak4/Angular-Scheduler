@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarSessionService } from '../calendar-session.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-month',
@@ -7,23 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonthComponent implements OnInit {
 
-  weeks: number[] = [1, 8, 15, 22, 29, 36];
-  month = 6;
-  year = 2019;
+  private month: number;
+  private year: number;
 
   daysOfMonth: string[][];
 
-  constructor() { }
+  constructor(private calendarSessionService: CalendarSessionService, private router: Router) {
+  }
 
   ngOnInit() {
-    this.year = 2020;
-    this.month = 5;
-    const daysInMonth = this.getNumberOfDaysInMonth(this.month);
-    this.daysOfMonth = this.getDaysOfMonthGrid(daysInMonth);
+    this.loadData();
+  }
+
+  loadData() {
+    this.year = this.calendarSessionService.PassedYear;
+    this.calendarSessionService.passedMonth$.subscribe(
+      (passedMonth) => {
+        this.month = passedMonth;
+        this.daysOfMonth = this.getDaysOfMonthGrid(this.getNumberOfDaysInMonth(this.month));
+      }
+    );
   }
 
   getNumberOfDaysInMonth(month: number): number {
-    return new Date(this.year, this.month, 0).getDate();
+    return new Date(this.year, month, 0).getDate();
   }
 
   getDaysOfMonthGrid(daysInMonth: number) {
