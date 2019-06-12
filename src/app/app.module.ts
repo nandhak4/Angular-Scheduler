@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MonthComponent } from './month/month.component';
 import { AppRoutingModule } from './app-routing.module';
+import { YearComponent } from './year/year.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MonthComponent
+    MonthComponent,
+    YearComponent
   ],
   imports: [
     BrowserModule,

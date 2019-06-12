@@ -36,6 +36,7 @@ export class CalendarSessionService {
   }
   public set PassedMonth(value: number) {
     this.passedMonth = value;
+    this.passedMonthSource.next(this.passedMonth);
   }
 
   private passedDay = -1;
@@ -58,13 +59,11 @@ export class CalendarSessionService {
   }
 
   GetNextMonth(displayedMonth: number) {
-    this.passedMonthSource.next(displayedMonth + 1);
-    this.passedMonth = displayedMonth + 1;
+    this.PassedMonth = displayedMonth + 1;
   }
 
   GetPreviousMonth(displayedMonth: number) {
-    this.passedMonthSource.next(displayedMonth - 1);
-    this.passedMonth = displayedMonth - 1;
+    this.PassedMonth = displayedMonth - 1;
   }
 
 }

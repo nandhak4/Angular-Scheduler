@@ -19,12 +19,10 @@ export class AppComponent implements OnInit {
 
   GetNext() {
     this.calendarSessionService.GetNextMonth(this.calendarSessionService.PassedMonth);
-    this.router.navigate(['']);
   }
 
   GetPrevious() {
     this.calendarSessionService.GetPreviousMonth(this.calendarSessionService.PassedMonth);
-    this.router.navigate(['']);
   }
 
 }
