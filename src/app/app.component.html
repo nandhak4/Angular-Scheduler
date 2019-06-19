@@ -1,5 +1,15 @@
+<div class="navigationContent">
+  <div [ngClass]="{'year':true,'isclicked':ShowYear}" (click)="SetCurrentDisplay('Y')">
+    Year<br>({{Year}})
+  </div>
+  <div [ngClass]="{'month':true,'isclicked':ShowMonth}" (click)="SetCurrentDisplay('M')">
+    MONTH<br>({{Month}})
+  </div>
+  <div [ngClass]="{'day':true,'isclicked':ShowDay}" (click)="SetCurrentDisplay('D')">
+    DAY<br>({{Day}})
+  </div>
+</div>
 <div class="mainContent">
-    
   <div class="outer">
     <div class="triangle-left" (click)="GetPrevious()"></div>
     <div class="content">
@@ -7,5 +17,4 @@
     </div>
     <div class="triangle-right" (click)="GetNext()"></div>
   </div>
-    
 </div>

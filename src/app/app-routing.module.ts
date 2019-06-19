@@ -6,9 +6,9 @@ import { YearComponent } from './year/year.component';
 
 const routes: Routes = [
   { path: '', component: YearComponent},
+  { path: 'year', component: YearComponent},
   { path: 'month', component: MonthComponent}
 ];
-
 
 @NgModule({
  exports: [

@@ -17,7 +17,7 @@ export class YearComponent implements OnInit {
 
   NavigateToMonth(month: number) {
     this.calendarSessionService.PassedMonth = month;
-    this.router.navigate(['month']);
+    this.calendarSessionService.SetCurrentDisplay('M');
   }
 
   NavigateToNextYearMonth(month: number) {

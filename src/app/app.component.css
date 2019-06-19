@@ -1,47 +1,107 @@
-.mainContent {
-    margin: 100px auto;
-    width: 600px;
-    height: 450px;
-    background-color: yellow;
-}
-.outer{
-    height: inherit;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left:auto;
-    margin-right:auto;
-    width: 500px;
-}
-.outer .triangle-right {
-    display: none;
-    float: right;
-    margin-top: 125px;
-    margin-right: -20px;
-    border-top: 100px solid transparent;
-	border-left: 20px solid blue;
-    border-bottom: 100px solid transparent;    
-}
-.outer .triangle-left {
-    display: none;
-    float: left;
-    margin-top: 125px;
-    margin-left: -20px;
-    border-top: 100px solid transparent;
-	border-right: 20px solid blue;
-    border-bottom: 100px solid transparent;
-}
-.mainContent:hover .triangle-right { 
-    display: block;
-}
-.mainContent:hover .triangle-left { 
-      display: block;
+.navigationContent {
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 450px;
+  height: 45px;
+  text-align: center;
+  overflow: hidden;
 }
 
-.outer .content{
-    margin-left: 50px;
-    width: 400px;
-    height: inherit;
-    float: left;
-    text-align: center;
-    margin-top: 50px;
+.year {
+  width: 150px;
+  height: 45px;
+  background-color: orange;
+  border-left: 1px solid transparent;
+  border-radius: 43px 0px 0px 43px;
+
+  display: -webkit-inline-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+}
+
+.month {
+  width: 150px;
+  height: 45px;
+  background-color: orange;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-radius: 43px;
+
+  margin-left: -21px;
+  margin-right: -21px;
+  position: relative;
+
+  display: -webkit-inline-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+}
+
+.day {
+  width: 150px;
+  height: 45px;
+  background-color: orange;
+  border-right: 1px solid transparent;
+  border-radius: 0px 43px 43px 0px;
+  
+  display: -webkit-inline-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+}
+
+.isclicked {
+  background-color: green;
+}
+
+.mainContent {
+  margin: 20px auto;
+  width: 600px;
+  height: 450px;
+  background-color: yellow;
+}
+
+.outer {
+  height: inherit;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+}
+
+.outer .triangle-right {
+  display: none;
+  float: right;
+  margin-top: 125px;
+  margin-right: -20px;
+  border-top: 100px solid transparent;
+  border-left: 20px solid blue;
+  border-bottom: 100px solid transparent;
+}
+
+.outer .triangle-left {
+  display: none;
+  float: left;
+  margin-top: 125px;
+  margin-left: -20px;
+  border-top: 100px solid transparent;
+  border-right: 20px solid blue;
+  border-bottom: 100px solid transparent;
+}
+
+.mainContent:hover .triangle-right {
+  display: block;
+}
+
+.mainContent:hover .triangle-left {
+  display: block;
+}
+
+.outer .content {
+  margin-left: 50px;
+  width: 400px;
+  height: inherit;
+  float: left;
+  text-align: center;
+  margin-top: 50px;
 }

@@ -22,10 +22,10 @@ export class MonthComponent implements OnInit {
   }
 
   loadData() {
-    this.year = this.calendarSessionService.PassedYear;
-    this.calendarSessionService.passedMonth$.subscribe(
-      (passedMonth) => {
-        this.month = passedMonth;
+    this.calendarSessionService.passedDate$.subscribe(
+      (passedDate: Date) => {
+        this.month = passedDate.getMonth();
+        this.year = passedDate.getFullYear();
         this.daysOfMonth = this.getDaysOfMonthGrid(this.getNumberOfDaysInMonth(this.month));
       }
     );
