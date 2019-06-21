@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarSessionService } from './calendar-session.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   public get Month(): number {
-    return this.calendarSessionService.PassedMonth;
+    return this.calendarSessionService.PassedMonth + 1;
   }
 
   public get Day(): number {

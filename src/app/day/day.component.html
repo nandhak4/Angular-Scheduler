@@ -1,0 +1,16 @@
+<div class="day">
+  <table>
+    <tr>
+      <th class="hourheading" *ngFor='let hour of DisplayHours'>{{hour.period}}</th>
+    </tr>
+    <tr>
+      <!-- <div>
+        <table class="meetingschedule">
+        </table>
+      </div> -->
+      <td class="hourstyle" [ngClass]="{'currentHour': hour.isCurrentHour}" *ngFor='let hour of DisplayHours'>
+        {{hour.period}}
+      </td>
+    </tr>
+  </table>
+</div>

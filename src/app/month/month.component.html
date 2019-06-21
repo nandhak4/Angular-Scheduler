@@ -14,14 +14,55 @@
       <th>Fri</th>
       <th>Sat</th>
     </tr>
-    <tr *ngFor="let day of daysOfMonth">
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[0].length == 0}">{{day[0]}}</div></td>
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[1].length == 0}">{{day[1]}}</div></td>
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[2].length == 0}">{{day[2]}}</div></td>
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[3].length == 0}">{{day[3]}}</div></td>
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[4].length == 0}">{{day[4]}}</div></td>
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[5].length == 0}">{{day[5]}}</div></td>
-      <td><div [ngClass]="{'dayStyle':true, 'differentMonth':day[6].length == 0}">{{day[6]}}</div></td>
+    <tr *ngFor="let weekDay of weeks">
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[0].differentMonth,'isCurrentDay':weekDay[0].isCurrentDay}">
+          {{weekDay[0].day}}
+        </div>
+      </td>
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[1].differentMonth,'isCurrentDay':weekDay[1].isCurrentDay}"
+          (click)='GoToDay(weekDay[1].day)'>
+          {{weekDay[1].day}}
+        </div>
+      </td>
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[2].differentMonth,'isCurrentDay':weekDay[2].isCurrentDay}"
+          (click)='GoToDay(weekDay[2].day)'>
+          {{weekDay[2].day}}
+        </div>
+      </td>
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[3].differentMonth,'isCurrentDay':weekDay[3].isCurrentDay}"
+          (click)='GoToDay(weekDay[3].day)'>
+          {{weekDay[3].day}}
+        </div>
+      </td>
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[4].differentMonth,'isCurrentDay':weekDay[4].isCurrentDay}"
+          (click)='GoToDay(weekDay[4].day)'>
+          {{weekDay[4].day}}
+        </div>
+      </td>
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[5].differentMonth,'isCurrentDay':weekDay[5].isCurrentDay}"
+          (click)='GoToDay(weekDay[5].day)'>
+          {{weekDay[5].day}}
+        </div>
+      </td>
+      <td>
+        <div class="dayStyle"
+          [ngClass]="{'differentMonth':weekDay[6].differentMonth,'isCurrentDay':weekDay[6].isCurrentDay}"
+          (click)='GoToDay(weekDay[6].day)'>
+          {{weekDay[6].day}}
+        </div>
+      </td>
     </tr>
   </table>
 </div>

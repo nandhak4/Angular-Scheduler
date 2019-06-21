@@ -1,27 +1,23 @@
-
-  <table  class="year">
-    <tr>
-      <td><div class="month" (click)="NavigateToMonth(1)">Jan</div></td>
-      <td><div class="month" (click)="NavigateToMonth(2)">Feb</div></td>
-      <td><div class="month" (click)="NavigateToMonth(3)">Mar</div></td>
-      <td><div class="month" (click)="NavigateToMonth(4)">Apr</div></td>
-    <tr>
-    <tr>
-      <td><div class="month" (click)="NavigateToMonth(5)">May</div></td>
-      <td><div class="month" (click)="NavigateToMonth(6)">Jun</div></td>
-      <td><div class="month" (click)="NavigateToMonth(7)">Jul</div></td>
-      <td><div class="month" (click)="NavigateToMonth(8)">Aug</div></td>
-    </tr>
-    <tr>
-      <td><div class="month" (click)="NavigateToMonth(9)">Sep</div></td>
-      <td><div class="month" (click)="NavigateToMonth(10)">Oct</div></td>
-      <td><div class="month" (click)="NavigateToMonth(11)">Nov</div></td>
-      <td><div class="month" (click)="NavigateToMonth(12)">Dec</div></td>
-    </tr>
-    <tr>
-      <td><div class="month differentyear" (click)="NavigateToNextYearMonth(1)">Jan</div></td>
-      <td><div class="month differentyear" (click)="NavigateToNextYearMonth(2)">Feb</div></td>
-      <td><div class="month differentyear" (click)="NavigateToNextYearMonth(3)">Mar</div></td>
-      <td><div class="month differentyear" (click)="NavigateToNextYearMonth(4)">Apr</div></td>
-    <tr>
-  </table>
+<table class="year">
+  <tr *ngFor='let months of GetYearGrid'>
+    <td *ngFor='let month of months'>
+      <div class="month" [ngClass]="{'currentmonth': month.isCurrentMonth}" (click)="NavigateToMonth(month.index)">
+        {{month.display}}
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="month differentyear" (click)="NavigateToNextYearMonth(0)">Jan</div>
+    </td>
+    <td>
+      <div class="month differentyear" (click)="NavigateToNextYearMonth(1)">Feb</div>
+    </td>
+    <td>
+      <div class="month differentyear" (click)="NavigateToNextYearMonth(2)">Mar</div>
+    </td>
+    <td>
+      <div class="month differentyear" (click)="NavigateToNextYearMonth(3)">Apr</div>
+    </td>
+  <tr>
+</table>

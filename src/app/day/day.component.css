@@ -1,0 +1,20 @@
+.day {
+  width: 400px;
+  position: absolute;
+  overflow-x: scroll;
+}
+
+.hourheading {
+  width: 100px;
+}
+
+.hourstyle {
+  min-width: 100px;
+  height: 300px;
+  background-color: yellowgreen;
+  border: 0.2px solid black;
+}
+
+.currentHour {
+  background-color: indigo;
+}

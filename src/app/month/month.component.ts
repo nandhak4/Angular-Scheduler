@@ -11,13 +11,16 @@ export class MonthComponent implements OnInit {
 
   private month: number;
   private year: number;
+  private isCurrentMonthDisplayed: boolean;
+  private currentDay: number;
 
-  daysOfMonth: string[][];
+  private weeks;
 
   constructor(private calendarSessionService: CalendarSessionService, private router: Router) {
   }
 
   ngOnInit() {
+    this.currentDay = this.calendarSessionService.CurrentDate.getDate();
     this.loadData();
   }
 
@@ -26,35 +29,42 @@ export class MonthComponent implements OnInit {
       (passedDate: Date) => {
         this.month = passedDate.getMonth();
         this.year = passedDate.getFullYear();
-        this.daysOfMonth = this.getDaysOfMonthGrid(this.getNumberOfDaysInMonth(this.month));
+        this.isCurrentMonthDisplayed = this.calendarSessionService.IsCurrentMonthDisplayed;
+        const noOfDaysInMonth = this.calendarSessionService.GetNumberOfDaysInMonth();
+        this.getWeeksOfMonthGrid(noOfDaysInMonth);
       }
     );
   }
 
-  getNumberOfDaysInMonth(month: number): number {
-    return new Date(this.year, month, 0).getDate();
-  }
-
-  getDaysOfMonthGrid(daysInMonth: number) {
-    const daysOfMonth: string[][] = [];
-    const firstDayOfMonth = this.getFirstDayOfMonth(this.year, this.month - 1);
+  getWeeksOfMonthGrid(daysInMonth: number) {
+    this.weeks = [];
+    const firstDayOfMonth = this.getFirstDayOfMonth(this.year, this.month);
 
     for (let i = 0, k = 1; i <= 5; i++) {
-      daysOfMonth.push([]);
-      for (let j = 1; j <= 7; j++, k++) {
+      this.weeks.push([]);
+      for (let j = 1; j <= 7; j++ , k++) {
         if (k > firstDayOfMonth && k <= firstDayOfMonth + daysInMonth) {
-        daysOfMonth[i].push((k - firstDayOfMonth).toString());
+          this.weeks[i].push({
+            day: (k - firstDayOfMonth),
+            isCurrentDay: this.isCurrentMonthDisplayed && (k - firstDayOfMonth) === this.currentDay
+          });
         } else {
-        daysOfMonth[i].push('');
+          this.weeks[i].push({
+            day: '',
+            differentMonth: true
+          });
         }
       }
     }
-    return daysOfMonth;
   }
 
   getFirstDayOfMonth(year: number, month: number): number {
-      return new Date(year, month, 1).getDay();
+    return new Date(year, month, 1).getDay();
   }
 
+  GoToDay(day: number) {
+    this.calendarSessionService.PassedDay = day;
+    this.calendarSessionService.SetCurrentDisplay('D');
+  }
 }
 

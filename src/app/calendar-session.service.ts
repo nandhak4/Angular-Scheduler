@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class CalendarSessionService {
 
   private passedMonth = -1;
   public get PassedMonth(): number {
-    return this.passedMonth < 0 ? this.currentDate.getMonth() + 1 : this.passedMonth;
+    return this.passedMonth < 0 ? this.currentDate.getMonth() : this.passedMonth;
   }
   public set PassedMonth(value: number) {
     this.passedMonth = value;
@@ -46,8 +46,8 @@ export class CalendarSessionService {
     return this.passedDay < 0 ? this.currentDate.getDate() : this.passedDay;
   }
   public set PassedDay(value: number) {
-     this.passedDay = value;
-     this.passedDateSource.next(this.PassedDate);
+    this.passedDay = value;
+    this.passedDateSource.next(this.PassedDate);
   }
 
   private showYear = false;
@@ -63,6 +63,18 @@ export class CalendarSessionService {
   private showDay = false;
   public get ShowDay(): boolean {
     return this.showDay;
+  }
+
+  public get IsCurrentYearDisplayed(): boolean {
+    return this.CurrentDate.getFullYear() === this.PassedDate.getFullYear();
+  }
+
+  public get IsCurrentMonthDisplayed(): boolean {
+    return this.IsCurrentYearDisplayed ? this.CurrentDate.getMonth() === this.PassedDate.getMonth() : false;
+  }
+
+  public get IsCurrentDayDisplayed(): boolean {
+    return this.IsCurrentMonthDisplayed ? this.CurrentDate.getDay() === this.PassedDate.getDay() : false;
   }
 
   constructor() {
@@ -85,7 +97,7 @@ export class CalendarSessionService {
         break;
       }
       default: {
-        this.DisplayYear();
+        this.DisplayDefault();
         break;
       }
     }
@@ -93,7 +105,7 @@ export class CalendarSessionService {
   }
 
   private DisplayDefault() {
-    this.showYear = true;
+    this.showMonth = true;
     this.navigationSource.next('');
   }
 
@@ -124,7 +136,7 @@ export class CalendarSessionService {
 
   GetNext() {
     if (this.ShowDay) {
-      return;
+      return this.GetNextDay();
     } else if (this.ShowMonth) {
       this.GetNextMonth();
     } else if (this.ShowYear) {
@@ -137,17 +149,26 @@ export class CalendarSessionService {
   }
 
   private GetNextMonth() {
-    if (this.PassedMonth === 12) {
-      this.PassedMonth = 1;
+    if (this.PassedMonth === 11) {
       this.GetNextYear();
+      this.PassedMonth = 0;
     } else {
-    this.PassedMonth += 1;
+      this.PassedMonth += 1;
+    }
+  }
+
+  private GetNextDay() {
+    if (this.PassedDay === this.GetNumberOfDaysInMonth()) {
+      this.GetNextMonth();
+      this.PassedDay = 1;
+    } else {
+      this.PassedDay += 1;
     }
   }
 
   GetPrevious() {
     if (this.ShowDay) {
-      return;
+      return this.GetPreviousDay();
     } else if (this.ShowMonth) {
       this.GetPreviousMonth();
     } else if (this.ShowYear) {
@@ -160,12 +181,24 @@ export class CalendarSessionService {
   }
 
   private GetPreviousMonth() {
-    if (this.PassedMonth === 1) {
-      this.PassedMonth = 12;
+    if (this.PassedMonth === 0) {
       this.GetPreviousYear();
+      this.PassedMonth = 11;
     } else {
-    this.PassedMonth -= 1;
+      this.PassedMonth -= 1;
     }
   }
 
+  private GetPreviousDay() {
+    if (this.PassedDay === 1) {
+      this.GetPreviousMonth();
+      this.PassedDay = this.GetNumberOfDaysInMonth();
+    } else {
+      this.PassedDay -= 1;
+    }
+  }
+
+  public GetNumberOfDaysInMonth(): number {
+    return new Date(this.PassedYear, this.PassedMonth + 1, 0).getDate();
+  }
 }
