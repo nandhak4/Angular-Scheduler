@@ -1,16 +1,19 @@
-<div class="day">
-  <table>
-    <tr>
-      <th class="hourheading" *ngFor='let hour of DisplayHours'>{{hour.period}}</th>
-    </tr>
-    <tr>
-      <!-- <div>
-        <table class="meetingschedule">
-        </table>
-      </div> -->
-      <td class="hourstyle" [ngClass]="{'currentHour': hour.isCurrentHour}" *ngFor='let hour of DisplayHours'>
-        {{hour.period}}
-      </td>
-    </tr>
-  </table>
+<div>
+  <div class="day">
+    <table>
+      <tr>
+        <th class="hourheading" *ngFor='let hour of hours'>{{hour.period}}</th>
+      </tr>
+      <tr>
+        <td class="hourstyle" [ngClass]="{'currentHour': hour.isCurrentHour}" *ngFor='let hour of hours'>
+          {{hour.period}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- <div class="schedule">
+    <table>
+
+    </table>
+  </div> -->
 </div>

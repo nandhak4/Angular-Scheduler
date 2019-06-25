@@ -40,17 +40,18 @@ export class MonthComponent implements OnInit {
     this.weeks = [];
     const firstDayOfMonth = this.getFirstDayOfMonth(this.year, this.month);
 
-    for (let i = 0, k = 1; i <= 5; i++) {
+    for (let i = 0, k = 1; i <= 5 && k <= firstDayOfMonth + daysInMonth; i++) {
       this.weeks.push([]);
       for (let j = 1; j <= 7; j++ , k++) {
         if (k > firstDayOfMonth && k <= firstDayOfMonth + daysInMonth) {
           this.weeks[i].push({
             day: (k - firstDayOfMonth),
+            differentMonth: false,
             isCurrentDay: this.isCurrentMonthDisplayed && (k - firstDayOfMonth) === this.currentDay
           });
         } else {
           this.weeks[i].push({
-            day: '',
+            nextMonth: k > (firstDayOfMonth + daysInMonth),
             differentMonth: true
           });
         }
@@ -62,9 +63,17 @@ export class MonthComponent implements OnInit {
     return new Date(year, month, 1).getDay();
   }
 
-  GoToDay(day: number) {
-    this.calendarSessionService.PassedDay = day;
-    this.calendarSessionService.SetCurrentDisplay('D');
+  GoToDay(day: number, differentMonth: boolean, nextMonth: boolean) {
+    if (!differentMonth) {
+      this.calendarSessionService.SetCurrentDisplay('D');
+      this.calendarSessionService.PassedDay = day;
+    } else {
+      if (nextMonth) {
+        this.calendarSessionService.GetNext();
+      } else {
+        this.calendarSessionService.GetPrevious();
+      }
+    }
   }
 }
 

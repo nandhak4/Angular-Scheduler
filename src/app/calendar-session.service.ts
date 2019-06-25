@@ -74,7 +74,7 @@ export class CalendarSessionService {
   }
 
   public get IsCurrentDayDisplayed(): boolean {
-    return this.IsCurrentMonthDisplayed ? this.CurrentDate.getDay() === this.PassedDate.getDay() : false;
+    return this.IsCurrentMonthDisplayed ? this.CurrentDate.getDate() === this.PassedDate.getDate() : false;
   }
 
   constructor() {

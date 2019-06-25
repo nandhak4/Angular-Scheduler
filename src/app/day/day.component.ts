@@ -13,24 +13,35 @@ export class DayComponent implements OnInit {
     '12PM - 1PM', '1PM - 2PM', '2PM - 3PM', '3PM - 4PM', '4PM - 5PM', '5PM - 6PM',
     '6PM - 7PM', '7PM - 8PM', '8PM - 9PM', '9PM - 10PM', '10PM - 11PM', '11PM - 12AM'];
 
-  private get DisplayHours() {
-    const currentHour = this.calendarSessionSevice.CurrentDate.getHours();
+  private currentHour: number;
+
+  private hours;
+
+  private DisplayHours() {
     const isCurrentDisplayed = this.calendarSessionSevice.IsCurrentDayDisplayed;
-    const hours = [];
+    this.hours = [];
 
     for (let i = 0; i < this.hoursOfDay.length; i++) {
-      hours.push({
+      this.hours.push({
         period: this.hoursOfDay[i],
-        isCurrentHour: isCurrentDisplayed && i === currentHour
+        isCurrentHour: isCurrentDisplayed && i === this.currentHour
       });
     }
-    return hours;
   }
 
   constructor(private calendarSessionSevice: CalendarSessionService) {
   }
 
   ngOnInit() {
+    this.currentHour = this.calendarSessionSevice.CurrentDate.getHours();
+    this.loadData();
+  }
+
+  loadData() {
+    this.calendarSessionSevice.passedDate$.subscribe(
+      (passedDate) => {
+        this.DisplayHours();
+      });
   }
 
 }
