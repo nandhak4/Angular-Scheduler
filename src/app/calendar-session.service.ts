@@ -105,7 +105,7 @@ export class CalendarSessionService {
   }
 
   private DisplayDefault() {
-    this.showMonth = true;
+    this.showDay = true;
     this.navigationSource.next('');
   }
 

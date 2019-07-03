@@ -1,7 +1,11 @@
-.day {
+table {
+  border-collapse: collapse;
+}
+
+.hour {
   width: 400px;
-  position: absolute;
   overflow-x: scroll;
+  position: absolute;
 }
 
 .hourheading {
@@ -12,7 +16,8 @@
   min-width: 100px;
   height: 300px;
   background-color: yellowgreen;
-  border: 0.2px solid black;
+  border: 1px solid black;
+  box-sizing: border-box;
 }
 
 .currentHour {

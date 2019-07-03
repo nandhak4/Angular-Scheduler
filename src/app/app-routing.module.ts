@@ -6,7 +6,7 @@ import { DayComponent } from './day/day.component';
 
 
 const routes: Routes = [
-  { path: '', component: MonthComponent },
+  { path: '', component: DayComponent },
   { path: 'year', component: YearComponent },
   { path: 'month', component: MonthComponent },
   { path: 'day', component: DayComponent }
