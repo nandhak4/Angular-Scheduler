@@ -7,7 +7,6 @@
       <app-schedule></app-schedule>
       <tr>
         <td class="hourstyle" [ngClass]="{'currentHour': hour.isCurrentHour}" *ngFor='let hour of hours'>
-          {{hour.period}}
         </td>
       </tr>
     </table>

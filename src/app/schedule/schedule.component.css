@@ -1,31 +1,40 @@
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 .schedule {
+  height: 300px;
   position: absolute;
-  /* background-color: transparent; */
+
+  
+  overflow-y: scroll;
+  overflow: -moz-hidden-unscrollable;
+  -ms-overflow-style: none;
 }
 
-.schedule .top-margin {
-    margin-top: 10px;
+::-webkit-scrollbar {
+  display: none;
+}
+
+.schedule .margin {
+  margin: 10px 0px;
 }
 
 .scheduletd {
   height: 50px;
   padding: 0px;
   box-sizing: border-box;
+}
 
-
-  min-width: 200px;
+.scheduleborder {
   border-width: 1px;
   border-style: solid;
   border-color: black;
 }
 
 .scheduletd div {
-    height: inherit;
-    display: -webkit-box;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
+  height: inherit;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
 }

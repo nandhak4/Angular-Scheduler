@@ -1,34 +1,12 @@
 <div class="schedule">
-
-  <div class="top-margin">
+  <div class="margin" *ngFor="let schedules of schedulelist">
     <table>
       <tr>
-        <td class="scheduletd">
-          <div style="background-color: blue;">1</div>
-        </td>
-        <td class="scheduletd">
-          <div style="background-color: red;">2</div>
-        </td>
-        <td class="scheduletd">
-          <div style="background-color: orange;">3</div>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="top-margin">
-    <table>
-      <tr>
-        <td class="scheduletd" style="min-width: 100px">
-
-        </td>
-        <td class="scheduletd">
-          <div style="background-color: blue;">4</div>
-        </td>
-        <td class="scheduletd">
-          <div style="background-color: red;">5</div>
-        </td>
-        <td class="scheduletd">
-          <div style="background-color: orange;">6</div>
+        <td class="scheduletd" [ngClass]="{'scheduleborder':schedule.isSchedule}"
+          [ngStyle]="{'min-width.px': schedule.width}" *ngFor="let schedule of schedules">
+          <div *ngIf='schedule.isSchedule' style="background-color: cornflowerblue;">
+            {{schedule.content}}: From {{schedule.begin}} to {{schedule.end}}
+          </div>
         </td>
       </tr>
     </table>

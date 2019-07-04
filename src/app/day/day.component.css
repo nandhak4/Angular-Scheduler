@@ -4,12 +4,14 @@ table {
 
 .hour {
   width: 400px;
+  height: 340px;
   overflow-x: scroll;
   position: absolute;
 }
 
 .hourheading {
   width: 100px;
+  height: 20px;
 }
 
 .hourstyle {
