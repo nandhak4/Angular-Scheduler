@@ -10,65 +10,66 @@ export class ScheduleComponent implements OnInit {
 
   originalSchedule = [
     {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
+      beginDate: new Date(2019, 6, 3),
+      endDate: new Date(2019, 6, 5),
       begin: 0.6,
       end: 2,
       created: 1
     },
     {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 4,
-      created: 3
-    },
-    {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 5,
+      beginDate: new Date(),
+      endDate: new Date(),
+      begin: 0,
+      end: 3,
       created: 2
     },
-    {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 5,
-      created: 4
-    },
-    {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 5,
-      created: 5
-    },
-    {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 5,
-      created: 6
-    },
-    {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 5,
-      created: 7
-    },
-    {
-      beginDate: new Date().getDate(),
-      endDate: new Date().getDate(),
-      begin: 2,
-      end: 5,
-      created: 8
-    }
+    // {
+    //   beginDate: new Date(),
+    //   endDate: new Date(),
+    //   begin: 2,
+    //   end: 5,
+    //   created: 2
+    // },
+    // {
+    //   beginDate: new Date(),
+    //   endDate: new Date(),
+    //   begin: 2,
+    //   end: 5,
+    //   created: 4
+    // },
+    // {
+    //   beginDate: new Date(),
+    //   endDate: new Date(),
+    //   begin: 2,
+    //   end: 5,
+    //   created: 5
+    // },
+    // {
+    //   beginDate: new Date(),
+    //   endDate: new Date(),
+    //   begin: 2,
+    //   end: 5,
+    //   created: 6
+    // },
+    // {
+    //   beginDate: new Date(),
+    //   endDate: new Date(),
+    //   begin: 2,
+    //   end: 5,
+    //   created: 7
+    // },
+    // {
+    //   beginDate: new Date(),
+    //   endDate: new Date(),
+    //   begin: 2,
+    //   end: 5,
+    //   created: 8
+    // }
   ];
 
   schedulelist = [];
   schedules = [];
+  hourWidthInPX: number;
 
   constructor(private calendarSessionService: CalendarSessionService) { }
 
@@ -77,11 +78,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   loadData(): void {
+    this.hourWidthInPX = this.calendarSessionService.HourWidthInPX;
     this.calendarSessionService.passedDate$.subscribe(
       (passedDate) => {
-        this.resetSchedules();
-        this.processOriginalSchedules(this.calendarSessionService.PassedDay);
-        this.getSchedules();
+        this.processOriginalSchedules();
+        this.displaySchedules();
       });
   }
 
@@ -90,7 +91,7 @@ export class ScheduleComponent implements OnInit {
     this.schedulelist = [];
   }
 
-  private getSchedules(): void {
+  private displaySchedules(): void {
     for (let i = 0, j = 0; i < this.schedules.length; i++) {
       if (this.schedulelist[j] === null || this.schedulelist[j] === undefined) {
         this.schedulelist[j] = [];
@@ -108,16 +109,19 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  private processOriginalSchedules(selectedDate: number): void {
+  private processOriginalSchedules(): void {
+    this.resetSchedules();
     for (const schedule of this.originalSchedule) {
-      if (this.calendarSessionService.IsCurrentDayDisplayed) {
+      if (this.checkScheduleBelongsToPassedDate(schedule)) {
         let begin = schedule.begin;
         let end = schedule.end;
-        if (schedule.beginDate !== schedule.endDate) {
-          if (schedule.beginDate === selectedDate) {
+        if (!this.AreDatesEqual(schedule.beginDate, schedule.endDate)) {
+          if (this.IsScheduleDateSameAsPassedDate(schedule.beginDate)) {
             end = 24;
-          } else {
+          } else if (this.IsScheduleDateSameAsPassedDate(schedule.endDate)) {
             begin = 0;
+          } else if (this.IsPassedDateWithinSchedule(schedule.beginDate, schedule.endDate)) {
+            begin = 0; end = 24;
           }
         }
         this.schedules.push({ beginDate: schedule.beginDate, endDate: schedule.endDate, begin, end, content: schedule.created });
@@ -127,14 +131,25 @@ export class ScheduleComponent implements OnInit {
     this.schedules = this.schedules.sort((a, b) => a.begin - b.begin || a.content - b.content);
   }
 
+  private checkScheduleBelongsToPassedDate(schedule): boolean {
+    return this.IsScheduleDateSameAsPassedDate(schedule.beginDate) || this.IsScheduleDateSameAsPassedDate(schedule.endDate) ||
+      this.IsPassedDateWithinSchedule(schedule.beginDate, schedule.endDate);
+  }
+
+  private IsScheduleDateSameAsPassedDate(scheduleDate: Date): boolean {
+    return this.AreDatesEqual(scheduleDate, this.calendarSessionService.PassedDate);
+  }
+
+  private IsPassedDateWithinSchedule(begin: Date, end: Date): boolean {
+    return begin < this.calendarSessionService.PassedDate && this.calendarSessionService.PassedDate < end;
+  }
+
+  private AreDatesEqual(date1: Date, date2: Date) {
+    return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+  }
+
   private createScheduleDisplayElement(isSchedule: boolean, begin: number, end: number, content: any) {
-    return {
-      isSchedule,
-      begin,
-      end,
-      content,
-      width: (end - begin) * 100
-    };
+    return { isSchedule, begin, end, content, width: (end - begin) * this.hourWidthInPX };
   }
 
   private pushSchedule(schedule, oldScheduleEnd, newSchedule): void {

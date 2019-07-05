@@ -77,6 +77,10 @@ export class CalendarSessionService {
     return this.IsCurrentMonthDisplayed ? this.CurrentDate.getDate() === this.PassedDate.getDate() : false;
   }
 
+  public get HourWidthInPX(): number {
+    return 125;
+  }
+
   constructor() {
     this.SetCurrentDisplay('');
   }

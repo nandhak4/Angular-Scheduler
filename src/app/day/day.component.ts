@@ -14,8 +14,8 @@ export class DayComponent implements OnInit {
     '6PM - 7PM', '7PM - 8PM', '8PM - 9PM', '9PM - 10PM', '10PM - 11PM', '11PM - 12AM'];
 
   private currentHour: number;
-
   private hours;
+  hourWidthInPX: number;
 
   private DisplayHours() {
     const isCurrentDisplayed = this.calendarSessionSevice.IsCurrentDayDisplayed;
@@ -33,6 +33,7 @@ export class DayComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hourWidthInPX = this.calendarSessionSevice.HourWidthInPX;
     this.currentHour = this.calendarSessionSevice.CurrentDate.getHours();
     this.loadData();
   }
