@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarSessionService } from '../calendar-session.service';
+import { ScheduleService } from '../schedule.service';
 
 @Component({
   selector: 'app-schedule',
@@ -8,70 +9,12 @@ import { CalendarSessionService } from '../calendar-session.service';
 })
 export class ScheduleComponent implements OnInit {
 
-  originalSchedule = [
-    {
-      beginDate: new Date(2019, 6, 3),
-      endDate: new Date(2019, 6, 5),
-      begin: 0.6,
-      end: 2,
-      created: 1
-    },
-    {
-      beginDate: new Date(),
-      endDate: new Date(),
-      begin: 0,
-      end: 3,
-      created: 2
-    },
-    // {
-    //   beginDate: new Date(),
-    //   endDate: new Date(),
-    //   begin: 2,
-    //   end: 5,
-    //   created: 2
-    // },
-    // {
-    //   beginDate: new Date(),
-    //   endDate: new Date(),
-    //   begin: 2,
-    //   end: 5,
-    //   created: 4
-    // },
-    // {
-    //   beginDate: new Date(),
-    //   endDate: new Date(),
-    //   begin: 2,
-    //   end: 5,
-    //   created: 5
-    // },
-    // {
-    //   beginDate: new Date(),
-    //   endDate: new Date(),
-    //   begin: 2,
-    //   end: 5,
-    //   created: 6
-    // },
-    // {
-    //   beginDate: new Date(),
-    //   endDate: new Date(),
-    //   begin: 2,
-    //   end: 5,
-    //   created: 7
-    // },
-    // {
-    //   beginDate: new Date(),
-    //   endDate: new Date(),
-    //   begin: 2,
-    //   end: 5,
-    //   created: 8
-    // }
-  ];
-
   schedulelist = [];
   schedules = [];
   hourWidthInPX: number;
+  originalSchedule;
 
-  constructor(private calendarSessionService: CalendarSessionService) { }
+  constructor(private calendarSessionService: CalendarSessionService, private scheduleService: ScheduleService) { }
 
   ngOnInit() {
     this.loadData();
@@ -79,6 +22,7 @@ export class ScheduleComponent implements OnInit {
 
   loadData(): void {
     this.hourWidthInPX = this.calendarSessionService.HourWidthInPX;
+    this.originalSchedule = this.scheduleService.getAllSchedules();
     this.calendarSessionService.passedDate$.subscribe(
       (passedDate) => {
         this.processOriginalSchedules();
@@ -115,12 +59,12 @@ export class ScheduleComponent implements OnInit {
       if (this.checkScheduleBelongsToPassedDate(schedule)) {
         let begin = schedule.begin;
         let end = schedule.end;
-        if (!this.AreDatesEqual(schedule.beginDate, schedule.endDate)) {
-          if (this.IsScheduleDateSameAsPassedDate(schedule.beginDate)) {
+        if (!this.areDatesEqual(schedule.beginDate, schedule.endDate)) {
+          if (this.isScheduleDateSameAsPassedDate(schedule.beginDate)) {
             end = 24;
-          } else if (this.IsScheduleDateSameAsPassedDate(schedule.endDate)) {
+          } else if (this.isScheduleDateSameAsPassedDate(schedule.endDate)) {
             begin = 0;
-          } else if (this.IsPassedDateWithinSchedule(schedule.beginDate, schedule.endDate)) {
+          } else if (this.isPassedDateWithinSchedule(schedule.beginDate, schedule.endDate)) {
             begin = 0; end = 24;
           }
         }
@@ -132,19 +76,19 @@ export class ScheduleComponent implements OnInit {
   }
 
   private checkScheduleBelongsToPassedDate(schedule): boolean {
-    return this.IsScheduleDateSameAsPassedDate(schedule.beginDate) || this.IsScheduleDateSameAsPassedDate(schedule.endDate) ||
-      this.IsPassedDateWithinSchedule(schedule.beginDate, schedule.endDate);
+    return this.isScheduleDateSameAsPassedDate(schedule.beginDate) || this.isScheduleDateSameAsPassedDate(schedule.endDate) ||
+      this.isPassedDateWithinSchedule(schedule.beginDate, schedule.endDate);
   }
 
-  private IsScheduleDateSameAsPassedDate(scheduleDate: Date): boolean {
-    return this.AreDatesEqual(scheduleDate, this.calendarSessionService.PassedDate);
+  private isScheduleDateSameAsPassedDate(scheduleDate: Date): boolean {
+    return this.areDatesEqual(scheduleDate, this.calendarSessionService.PassedDate);
   }
 
-  private IsPassedDateWithinSchedule(begin: Date, end: Date): boolean {
+  private isPassedDateWithinSchedule(begin: Date, end: Date): boolean {
     return begin < this.calendarSessionService.PassedDate && this.calendarSessionService.PassedDate < end;
   }
 
-  private AreDatesEqual(date1: Date, date2: Date) {
+  private areDatesEqual(date1: Date, date2: Date): boolean {
     return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
   }
 

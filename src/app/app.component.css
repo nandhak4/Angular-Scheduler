@@ -1,4 +1,4 @@
-.navigationContent {
+.navigationbar {
   margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
@@ -104,4 +104,11 @@
   float: left;
   text-align: center;
   margin-top: 50px;
+}
+
+.sidebar {
+  position: relative;
+  width: 400px;
+  background-color: olivedrab;
+  height: 100vh;
 }

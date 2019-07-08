@@ -1,20 +1,27 @@
-<div class="navigationContent">
-  <div [ngClass]="{'year':true,'isclicked':ShowYear}" (click)="SetCurrentDisplay('Y')">
-    Year<br>({{Year}})
+<div style="display: flex;">
+  <div class="sidebar">
+    <router-outlet name="schedulebar"></router-outlet>
   </div>
-  <div [ngClass]="{'month':true,'isclicked':ShowMonth}" (click)="SetCurrentDisplay('M')">
-    MONTH<br>({{Month}})
-  </div>
-  <div [ngClass]="{'day':true,'isclicked':ShowDay}" (click)="SetCurrentDisplay('D')">
-    DAY<br>({{Day}})
-  </div>
-</div>
-<div class="mainContent">
-  <div class="outer">
-    <div class="triangle-left" (click)="GetPrevious()"></div>
-    <div class="content">
-      <router-outlet></router-outlet>
+  <div style="margin:auto;">
+    <div class="navigationbar">
+      <div class="year" [ngClass]="{'isclicked':ShowYear}" (click)="SetCurrentDisplay('Y')">
+        Year<br>({{Year}})
+      </div>
+      <div class="month" [ngClass]="{'isclicked':ShowMonth}" (click)="SetCurrentDisplay('M')">
+        MONTH<br>({{Month}})
+      </div>
+      <div class="day" [ngClass]="{'isclicked':ShowDay}" (click)="SetCurrentDisplay('D')">
+        DAY<br>({{Day}})
+      </div>
     </div>
-    <div class="triangle-right" (click)="GetNext()"></div>
+    <div class="mainContent">
+      <div class="outer">
+        <div class="triangle-left" (click)="GetPrevious()"></div>
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="triangle-right" (click)="GetNext()"></div>
+      </div>
+    </div>
   </div>
 </div>
