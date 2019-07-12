@@ -1,23 +1,23 @@
 <table class="year">
-  <tr *ngFor='let months of GetYearGrid'>
+  <tr *ngFor='let months of Year'>
     <td *ngFor='let month of months'>
-      <div class="month" [ngClass]="{'currentmonth': month.isCurrentMonth}" (click)="NavigateToMonth(month.index)">
+      <div class="month" [ngClass]="{'currentmonth': month.isCurrentMonth}" (click)="navigateToMonth(month.index)">
         {{month.display}}
       </div>
     </td>
   </tr>
   <tr>
     <td>
-      <div class="month differentyear" (click)="NavigateToNextYearMonth(0)">Jan</div>
+      <div class="month differentyear" (click)="navigateToNextYearMonth(0)">Jan</div>
     </td>
     <td>
-      <div class="month differentyear" (click)="NavigateToNextYearMonth(1)">Feb</div>
+      <div class="month differentyear" (click)="navigateToNextYearMonth(1)">Feb</div>
     </td>
     <td>
-      <div class="month differentyear" (click)="NavigateToNextYearMonth(2)">Mar</div>
+      <div class="month differentyear" (click)="navigateToNextYearMonth(2)">Mar</div>
     </td>
     <td>
-      <div class="month differentyear" (click)="NavigateToNextYearMonth(3)">Apr</div>
+      <div class="month differentyear" (click)="navigateToNextYearMonth(3)">Apr</div>
     </td>
   <tr>
 </table>

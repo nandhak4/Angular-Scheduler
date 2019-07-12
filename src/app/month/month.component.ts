@@ -36,7 +36,7 @@ export class MonthComponent implements OnInit {
     );
   }
 
-  getWeeksOfMonthGrid(daysInMonth: number) {
+  getWeeksOfMonthGrid(daysInMonth: number): void {
     this.weeks = [];
     const firstDayOfMonth = this.getFirstDayOfMonth(this.year, this.month);
 
@@ -63,7 +63,7 @@ export class MonthComponent implements OnInit {
     return new Date(year, month, 1).getDay();
   }
 
-  GoToDay(day: number, differentMonth: boolean, nextMonth: boolean) {
+  goToDay(day: number, differentMonth: boolean, nextMonth: boolean): void {
     if (!differentMonth) {
       this.calendarSessionService.SetCurrentDisplay('D');
       this.calendarSessionService.PassedDay = day;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarSessionService } from '../calendar-session.service';
 import { ScheduleService } from '../schedule.service';
+import { Schedule } from '../shared/schedule.model';
 
 @Component({
   selector: 'app-schedule',
@@ -10,9 +11,9 @@ import { ScheduleService } from '../schedule.service';
 export class ScheduleComponent implements OnInit {
 
   schedulelist = [];
-  schedules = [];
+  schedules: Schedule[];
   hourWidthInPX: number;
-  originalSchedule;
+  originalSchedule: Schedule[];
 
   constructor(private calendarSessionService: CalendarSessionService, private scheduleService: ScheduleService) { }
 
@@ -43,7 +44,7 @@ export class ScheduleComponent implements OnInit {
         j = 0;
       } else {
         const lastScheduleEnd = this.schedulelist[j][this.schedulelist[j].length - 1].end;
-        if (lastScheduleEnd > this.schedules[i].begin) {
+        if (lastScheduleEnd > this.schedules[i].fromTime) {
           j++; i--;
         } else {
           this.pushSchedule(this.schedulelist[j], lastScheduleEnd, this.schedules[i]);
@@ -57,27 +58,30 @@ export class ScheduleComponent implements OnInit {
     this.resetSchedules();
     for (const schedule of this.originalSchedule) {
       if (this.checkScheduleBelongsToPassedDate(schedule)) {
-        let begin = schedule.begin;
-        let end = schedule.end;
-        if (!this.areDatesEqual(schedule.beginDate, schedule.endDate)) {
-          if (this.isScheduleDateSameAsPassedDate(schedule.beginDate)) {
-            end = 24;
-          } else if (this.isScheduleDateSameAsPassedDate(schedule.endDate)) {
-            begin = 0;
-          } else if (this.isPassedDateWithinSchedule(schedule.beginDate, schedule.endDate)) {
-            begin = 0; end = 24;
+        let fromTime = schedule.fromTime;
+        let toTime = schedule.toTime;
+        if (!this.areDatesEqual(schedule.fromDate, schedule.toDate)) {
+          if (this.isScheduleDateSameAsPassedDate(schedule.fromDate)) {
+            toTime = 24;
+          } else if (this.isScheduleDateSameAsPassedDate(schedule.toDate)) {
+            fromTime = 0;
+          } else if (this.isPassedDateWithinSchedule(schedule.fromDate, schedule.toDate)) {
+            fromTime = 0; toTime = 24;
           }
         }
-        this.schedules.push({ beginDate: schedule.beginDate, endDate: schedule.endDate, begin, end, content: schedule.created });
+        this.schedules.push({
+          fromDate: schedule.fromDate, toDate: schedule.toDate, fromTime, toTime,
+          createdDate: schedule.createdDate, content: schedule.content
+        });
       }
     }
 
-    this.schedules = this.schedules.sort((a, b) => a.begin - b.begin || a.content - b.content);
+    this.schedules = this.schedules.sort((a, b) => a.fromTime - b.fromTime || (a.createdDate >= b.createdDate ? -1 : 1));
   }
 
-  private checkScheduleBelongsToPassedDate(schedule): boolean {
-    return this.isScheduleDateSameAsPassedDate(schedule.beginDate) || this.isScheduleDateSameAsPassedDate(schedule.endDate) ||
-      this.isPassedDateWithinSchedule(schedule.beginDate, schedule.endDate);
+  private checkScheduleBelongsToPassedDate(schedule: Schedule): boolean {
+    return this.isScheduleDateSameAsPassedDate(schedule.fromDate) || this.isScheduleDateSameAsPassedDate(schedule.toDate) ||
+      this.isPassedDateWithinSchedule(schedule.fromDate, schedule.toDate);
   }
 
   private isScheduleDateSameAsPassedDate(scheduleDate: Date): boolean {
@@ -96,12 +100,12 @@ export class ScheduleComponent implements OnInit {
     return { isSchedule, begin, end, content, width: (end - begin) * this.hourWidthInPX };
   }
 
-  private pushSchedule(schedule, oldScheduleEnd, newSchedule): void {
-    if (oldScheduleEnd !== newSchedule.begin) {
-      schedule.push(this.createScheduleDisplayElement(false, oldScheduleEnd, newSchedule.begin, ''));
+  private pushSchedule(schedule, oldScheduleEnd, newSchedule: Schedule): void {
+    if (oldScheduleEnd !== newSchedule.fromTime) {
+      schedule.push(this.createScheduleDisplayElement(false, oldScheduleEnd, newSchedule.fromTime, ''));
     }
 
-    schedule.push(this.createScheduleDisplayElement(true, newSchedule.begin, newSchedule.end, newSchedule.content));
+    schedule.push(this.createScheduleDisplayElement(true, newSchedule.fromTime, newSchedule.toTime, newSchedule.content));
   }
 
 }

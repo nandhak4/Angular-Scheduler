@@ -16,6 +16,23 @@ export class YearComponent implements OnInit {
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   private currentMonth;
+  private year;
+
+  public get Year(): [][] {
+    this.year = [];
+    for (let i = 0, j = 0, k = 0; i < 3; i++) {
+      this.year.push([]);
+      for (k = j; k < j + 4; k++) {
+        this.year[i].push({
+          display: this.monthsOfYear[k],
+          index: k,
+          isCurrentMonth: this.IsCurrentYear && k === this.currentMonth
+        });
+      }
+      j = k;
+    }
+    return this.year;
+  }
 
   private get IsCurrentYear(): boolean {
     return this.calendarSessionService.IsCurrentYearDisplayed;
@@ -25,29 +42,14 @@ export class YearComponent implements OnInit {
     this.currentMonth = this.calendarSessionService.CurrentDate.getMonth();
   }
 
-  NavigateToMonth(month: number) {
+  navigateToMonth(month: number): void {
     this.calendarSessionService.PassedMonth = month;
     this.calendarSessionService.SetCurrentDisplay('M');
   }
 
-  NavigateToNextYearMonth(month: number) {
+  navigateToNextYearMonth(month: number): void {
     this.calendarSessionService.PassedYear += 1;
-    this.NavigateToMonth(month);
+    this.navigateToMonth(month);
   }
 
-  public get GetYearGrid(): [][] {
-    const year = [];
-    for (let i = 0, j = 0, k = 0; i < 3; i++) {
-      year.push([]);
-      for (k = j; k < j + 4; k++) {
-        year[i].push({
-          display: this.monthsOfYear[k],
-          index: k,
-          isCurrentMonth: this.IsCurrentYear && k === this.currentMonth
-        });
-      }
-      j = k;
-    }
-    return year;
-  }
 }

@@ -17,7 +17,7 @@ export class DayComponent implements OnInit {
   private hours;
   hourWidthInPX: number;
 
-  private DisplayHours() {
+  private displayHours(): void {
     const isCurrentDisplayed = this.calendarSessionSevice.IsCurrentDayDisplayed;
     this.hours = [];
 
@@ -41,7 +41,7 @@ export class DayComponent implements OnInit {
   loadData() {
     this.calendarSessionSevice.passedDate$.subscribe(
       (passedDate) => {
-        this.DisplayHours();
+        this.displayHours();
       });
   }
 

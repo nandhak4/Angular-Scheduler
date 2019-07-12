@@ -22,8 +22,7 @@ export class SchedulebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  DisplayForm() {
-    // console.log(this.createScheduleForm.value);
+  displayForm() {
     const fromDate = new Date(this.createScheduleForm.value.fromDate);
     console.log(new Date(fromDate.getFullYear(),
       fromDate.getMonth(),
