@@ -1,4 +1,82 @@
 .schedulebar {
     width: 350px;
-    margin: auto
+    margin: auto;
+}
+
+input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+    text-align: center;
+    font-size: 18px;
+    width: 150px;
+    background-color: transparent;
+    height: 25px;
+    outline: none;
+    margin-left: 5px;
+}
+
+::placeholder {
+    color:black;
+    font-size: 15px;
+}
+
+.start {
+    margin: 50px auto;
+    width:  300px;
+    height: 150px;
+
+    border: 1px solid black;
+    box-sizing: content-box;
+    
+    font: 20px arial, sans-serif;
+    
+}
+
+.header {
+    width: inherit;
+    min-height: 10%;
+    background-color: red;
+    margin: -2% 0% 2% 0%
+}
+
+.inputdiv {
+    width: inherit;
+    min-height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.session {
+    width: 30px;
+    height: 15px;
+    background-color: orange;
+    font-size: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.am {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 7px 0px 0px 7px
+}
+
+.pm {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 0px 7px 7px 0px
+}
+
+.am:active {
+    background-color: green;
+}
+
+.pm:active {
+    background-color: green;
 }
