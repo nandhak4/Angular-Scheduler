@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MonthComponent } from './month/month.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +8,8 @@ import { YearComponent } from './year/year.component';
 import { DayComponent } from './day/day.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { SchedulebarComponent } from './schedulebar/schedulebar.component';
+import { CustomInputComponent } from './shared/components/custom-input/custom-input.component';
+import { InputTypeDirective } from './shared/directives/input-type.directive';
 
 @NgModule({
   declarations: [
@@ -18,12 +18,14 @@ import { SchedulebarComponent } from './schedulebar/schedulebar.component';
     YearComponent,
     DayComponent,
     ScheduleComponent,
-    SchedulebarComponent
+    SchedulebarComponent,
+    CustomInputComponent,
+    InputTypeDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,25 +1,11 @@
 <div class="schedulebar">
-  <form [formGroup]="createScheduleForm" (ngSubmit)="displayForm()">
+  <form>
     <div class="start">
       <div class="header">
 
       </div>
-      <div class="inputdiv">
-        <label>
-          From:
-          <input name="startdate" placeholder="yyyy/mm/dd" />
-        </label>
-      </div>
-      <div class="inputdiv">
-        <label>
-          Time:
-          <input name="starttime" placeholder="hh:mm" />
-        </label>
-      </div>
-      <div class="inputdiv">
-          <div class="session am">AM</div>
-          <div class="session pm">PM</div>
-      </div>
+      <app-custom-input [appInputLabelName]="'From'" [appDatePlaceholder]="'yyyy/mm/dd'"></app-custom-input>
+      <app-custom-input [appInputLabelName]="'Time'" [appTimePlaceholder]="'hh:mm'"></app-custom-input>
     </div>
   </form>
 </div>

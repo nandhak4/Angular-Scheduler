@@ -1,0 +1,13 @@
+<div class="custominput">
+  <label>
+    {{labelName}}:
+    <input appInputType [placeholder]='placeHolder' [(ngModel)]='customInputValue' [ngModelOptions]='updateOnBlur' />
+  </label>
+  <div class="validationmessage">
+    <span>It is required.</span>
+  </div>
+</div>
+<div *ngIf='showSession' class="sessioninput">
+  <div class="session am">AM</div>
+  <div class="session pm">PM</div>
+</div>
