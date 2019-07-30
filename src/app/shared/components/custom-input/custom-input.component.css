@@ -10,6 +10,23 @@ input {
   height: 25px;
   outline: none;
   margin-left: 5px;
+
+  -moz-user-select: toggle;
+  user-select: text;
+}
+
+input:focus {
+  color: none;
+  background-color: transparent;
+
+}
+
+input::selection {
+  color: none;
+  background-color: transparent;
+  
+  -moz-user-select: toggle;
+  user-select: none;  
 }
 
 ::placeholder {
@@ -19,19 +36,19 @@ input {
 
 .custominput {
   width: inherit;
-  min-height: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .sessioninput {
   width: inherit;
-  min-height: 25%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 20px 0px;
 }
 
 .session {
@@ -69,14 +86,16 @@ input {
 .validationmessage {
   font-size: 9px;
   color: black;
-  padding-right: 15%;
+  padding-left: 35%;
+  padding-right: 10%;
   width: 100%;
   box-sizing: border-box;
 
+
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  word-break: break-all
+  /* word-break: break-all */
 }
