@@ -1,12 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import {
+  ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator,
+  AbstractControl, ValidationErrors, FormControl, NgModel
+} from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
   templateUrl: './custom-input.component.html',
-  styleUrls: ['./custom-input.component.css']
+  styleUrls: ['./custom-input.component.css'],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CustomInputComponent), multi: true },
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => CustomInputComponent), multi: true }
+  ]
 })
-export class CustomInputComponent implements OnInit {
-
+export class CustomInputComponent implements OnInit, ControlValueAccessor, Validator {
 
   // tslint:disable-next-line: no-input-rename
   @Input('appInputLabelName') labelName: string;
@@ -17,6 +24,9 @@ export class CustomInputComponent implements OnInit {
   // tslint:disable-next-line: no-input-rename
   @Input('appTimePlaceholder') timeFormat: string;
 
+  @Output() dataSource = new EventEmitter<string>();
+
+  @ViewChild('appInput', { static: false }) appInput: NgModel;
 
   public get placeHolder(): string {
     return this.dateFormat || this.timeFormat || '';
@@ -26,15 +36,40 @@ export class CustomInputComponent implements OnInit {
     return this.timeFormat !== null && this.timeFormat !== undefined;
   }
 
+  public get formControl(): FormControl {
+    return this.appInput && this.appInput.control;
+  }
 
-  customInputValue: string;
+  private customInputValue: string;
+  get CustomInputValue(): string {
+    return this.customInputValue;
+  }
+  set CustomInputValue(value: string) {
+    this.customInputValue = value;
+    this.dataSource.emit(this.placeHolder + ':::' + this.customInputValue);
+  }
 
   updateOnBlur = { standalone: true, updateOn: 'blur' };
 
   constructor() { }
 
   ngOnInit() {
+  }
 
+  writeValue(obj: any): void {
+  }
+
+  registerOnChange(fn: any): void {
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+  }
+
+  validate(control: AbstractControl): ValidationErrors {
+    return this.formControl && this.formControl.errors;
   }
 
 }

@@ -15,7 +15,7 @@ const ValidateDay = (year: number, month: number, day: number): string =>
 
 const IsPastDateSelected = (currentDate: Date, year: number, month: number, day: number): string =>
     IsValidDay(year, month, day) && new Date(year, month - 1, day) < currentDate ? 'Date entered should be greater than or equal to ' +
-        currentDate.getFullYear() + '/' + currentDate.getMonth() + 1 + '/' + currentDate.getDate() : '';
+        currentDate.getFullYear() + '/' + (currentDate.getMonth() + 1) + '/' + currentDate.getDate() : '';
 
 export const dateYYYYMMDDValidatorFunction = (control: FormControl, format: string): ValidationErrors => {
 

@@ -1,11 +1,10 @@
 <div class="schedulebar">
   <form>
-    <div class="start">
-      <div class="header">
-
-      </div>
-      <app-custom-input [appInputLabelName]="'From'" [appDatePlaceholder]="'yyyy/mm/dd'"></app-custom-input>
-      <app-custom-input [appInputLabelName]="'Time'" [appTimePlaceholder]="'hh:mm'"></app-custom-input>
-    </div>
+    <app-schedule-event [scheduleEventDateLabel]="'From'" [sheduleEventDatePlaceholder]="'yyyy/mm/dd'"
+      [scheduleEventTimeLabel]="'Time'" [scheduleEventTimePlaceholder]="'hh:mm'">
+    </app-schedule-event>
+    <app-schedule-event [scheduleEventDateLabel]="'To'" [sheduleEventDatePlaceholder]="'yyyy/mm/dd'"
+      [scheduleEventTimeLabel]="'Time'" [scheduleEventTimePlaceholder]="'hh:mm'">
+    </app-schedule-event>
   </form>
 </div>

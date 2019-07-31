@@ -1,0 +1,15 @@
+.displaymessage {
+    font-size: 9px;
+    color: black;
+    padding: 1% 10% 0% 5%;
+    width: 100%;
+    box-sizing: border-box;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  
+    /* word-break: break-all */
+  }
+  

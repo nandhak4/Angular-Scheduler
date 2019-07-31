@@ -1,0 +1,10 @@
+<div class="displaymessage">
+  <ng-container *ngIf='messages.length > 1'>
+    <li *ngFor='let message of messages'>
+      <span>{{message}}</span>
+    </li>
+  </ng-container>
+  <ng-container *ngIf='messages.length == 1'>
+    <span>{{messages[0]}}</span>
+  </ng-container>
+</div>

@@ -7,26 +7,22 @@ input {
   font-size: 18px;
   width: 150px;
   background-color: transparent;
-  height: 25px;
+  height: 20px;
   outline: none;
   margin-left: 5px;
-
-  -moz-user-select: toggle;
-  user-select: text;
 }
 
 input:focus {
   color: none;
   background-color: transparent;
-
 }
 
 input::selection {
   color: none;
   background-color: transparent;
-  
+
   -moz-user-select: toggle;
-  user-select: none;  
+  user-select: none;
 }
 
 ::placeholder {
@@ -35,12 +31,22 @@ input::selection {
 }
 
 .custominput {
-  width: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  width: 300px;
+  grid-template-columns: 30% 70%;
   margin-top: 10px;
+}
+
+.labelItem {
+  margin-left: auto;
+  margin-right: 5px;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.inputItem {
+  grid-column-start: 2;
+  grid-row-start: 1;
 }
 
 .sessioninput {
@@ -63,16 +69,17 @@ input::selection {
 }
 
 .am {
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border: 1px solid black;
+  border-collapse: collapse;
   border-radius: 7px 0px 0px 7px
 }
 
 .pm {
   border: 1px solid black;
   border-collapse: collapse;
-  border-radius: 0px 7px 7px 0px
+  
+  border-radius: 0px 7px 7px 0px;
+  margin-left: -1px;
 }
 
 .am:active {
@@ -83,19 +90,7 @@ input::selection {
   background-color: green;
 }
 
-.validationmessage {
-  font-size: 9px;
-  color: black;
-  padding-left: 35%;
-  padding-right: 10%;
-  width: 100%;
-  box-sizing: border-box;
-
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-
-  /* word-break: break-all */
+.errormessage {
+  grid-column-start: 2;
+  grid-column-end: 3;
 }

@@ -1,18 +1,12 @@
 <div class="custominput">
-  <label>
-    {{labelName}}:
-    <input appInputType #appInput='ngModel' name='label' [placeholder]='placeHolder' [(ngModel)]='customInputValue'
-      [ngModelOptions]='updateOnBlur' />
-  </label>
-  <div *ngIf='appInput.invalid' class="validationmessage">
-    <ng-container *ngIf='appInput.errors.messages.length > 1'>
-      <li *ngFor='let message of appInput.errors.messages'>
-        <span>{{message}}</span>
-      </li>
-    </ng-container>
-    <ng-container *ngIf='appInput.errors.messages.length == 1'>
-      <span>{{appInput.errors.messages[0]}}</span>
-    </ng-container>
+  <div class="labelItem">
+    <label>{{labelName}}:</label>
+  </div>
+  <div class="inputItem">
+    <input appInputType #appInput='ngModel' [placeholder]='placeHolder' [(ngModel)]='CustomInputValue' [ngModelOptions]='updateOnBlur' />
+  </div>
+  <div class='errormessage' *ngIf='appInput.invalid'>
+    <app-display-message [messages]='appInput.errors.messages'></app-display-message>
   </div>
 </div>
 <div *ngIf='showSession' class="sessioninput">

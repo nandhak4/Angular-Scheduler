@@ -14,11 +14,12 @@ export class InputTypeDirective implements Validator {
       (this.appSource.nativeElement as HTMLInputElement) : null;
   }
 
+  isNotNullOrEmpty = (value: string): boolean => value !== null && value !== undefined && value.length > 0;
+
   constructor(private appSource: ElementRef) { }
 
   validate(control: AbstractControl): ValidationErrors {
-    if (this.inputElement.placeholder != null && this.inputElement.placeholder.length > 0 &&
-      control.value !== null && control.value !== undefined) {
+    if (this.isNotNullOrEmpty(this.inputElement.placeholder) && this.isNotNullOrEmpty(control.value)) {
       return appInputValidatorFunction[this.inputElement.placeholder](control, this.inputElement.placeholder);
     }
   }

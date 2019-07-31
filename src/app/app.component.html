@@ -4,15 +4,7 @@
   </div>
   <div style="margin:auto;">
     <div class="navigationbar">
-      <div class="year" [ngClass]="{'isclicked':ShowYear}" (click)="SetCurrentDisplay('Y')">
-        Year<br>({{Year}})
-      </div>
-      <div class="month" [ngClass]="{'isclicked':ShowMonth}" (click)="SetCurrentDisplay('M')">
-        MONTH<br>({{Month}})
-      </div>
-      <div class="day" [ngClass]="{'isclicked':ShowDay}" (click)="SetCurrentDisplay('D')">
-        DAY<br>({{Day}})
-      </div>
+      <app-navigation-bar></app-navigation-bar>
     </div>
     <div class="mainContent">
       <div class="outer">
