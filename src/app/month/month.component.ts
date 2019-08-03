@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarSessionService } from '../calendar-session.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-month',

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MessageService } from 'src/app/shared/message.service';
+import { Message } from '../../schedule.model';
 
 @Component({
   selector: 'app-display-message',
@@ -7,11 +9,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DisplayMessageComponent implements OnInit {
 
-  @Input() messages: string[];
+  @Input() messages: string[] = [];
 
-  constructor() { }
+  @Input() key: string;
+
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
+    this.messageService.$messageSource.subscribe((message: Message) => {
+
+      if (message && message.key === this.key) {
+        this.messages = message.value;
+      }
+    });
   }
 
 }

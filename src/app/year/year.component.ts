@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ThrowStmt } from '@angular/compiler';
 import { CalendarSessionService } from '../calendar-session.service';
 
 @Component({

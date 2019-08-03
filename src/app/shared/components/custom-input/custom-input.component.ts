@@ -3,6 +3,7 @@ import {
   ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator,
   AbstractControl, ValidationErrors, FormControl, NgModel
 } from '@angular/forms';
+import { MessageService } from '../../message.service';
 
 @Component({
   selector: 'app-custom-input',
@@ -14,6 +15,9 @@ import {
   ]
 })
 export class CustomInputComponent implements OnInit, ControlValueAccessor, Validator {
+
+  // tslint:disable-next-line: no-input-rename
+  @Input('appKey') keyId: string;
 
   // tslint:disable-next-line: no-input-rename
   @Input('appInputLabelName') labelName: string;
@@ -46,12 +50,13 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
   }
   set CustomInputValue(value: string) {
     this.customInputValue = value;
-    this.dataSource.emit(this.placeHolder + ':::' + this.customInputValue);
+    this.messageService.clearErrorMessage(this.keyId);
+    this.dataSource.emit(this.keyId + ':::' + this.customInputValue);
   }
 
   updateOnBlur = { standalone: true, updateOn: 'blur' };
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
   }
@@ -69,7 +74,10 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return this.formControl && this.formControl.errors;
+    if (this.formControl && this.formControl.errors) {
+      this.messageService.showErrorMessage({ key: this.keyId, value: this.formControl.errors.messages });
+      return this.formControl.errors;
+    }
   }
 
 }

@@ -26,9 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   private SubscribeToNavigation() {
-    this.calendarSessionService.navigationSource$.subscribe((routePath) => {
-      this.router.navigate([routePath]);
-    });
+    this.calendarSessionService.navigationSource$.subscribe((path) => this.router.navigate([path]));
   }
 
 }

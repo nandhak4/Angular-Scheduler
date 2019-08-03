@@ -2,9 +2,9 @@
   <div class="header">
 
   </div>
-  <app-custom-input formControlName='{{datePlaceholder}}' (dataSource)='update($event)' [appInputLabelName]='dateLabel' [appDatePlaceholder]='datePlaceholder'>
+  <app-custom-input formControlName='{{appDateId}}' [appKey]='appDateId' (dataSource)='update($event)' [appInputLabelName]='dateLabel' [appDatePlaceholder]='datePlaceholder'>
   </app-custom-input>
-  <app-custom-input formControlName='{{timePlaceholder}}' (dataSource)='update($event)' [appInputLabelName]='timeLabel' [appTimePlaceholder]="timePlaceholder">
+  <app-custom-input formControlName='{{appTimeId}}' [appKey]='appTimeId' (dataSource)='update($event)' [appInputLabelName]='timeLabel' [appTimePlaceholder]="timePlaceholder">
   </app-custom-input>
 </div>
-<!-- <p>{{scheduleEvent.valid ? 'true': 'false'}}</p> -->
+<p>{{scheduleEvent.valid ? 'true': 'false'}}</p>

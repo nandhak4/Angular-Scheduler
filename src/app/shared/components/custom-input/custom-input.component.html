@@ -5,8 +5,8 @@
   <div class="inputItem">
     <input appInputType #appInput='ngModel' [placeholder]='placeHolder' [(ngModel)]='CustomInputValue' [ngModelOptions]='updateOnBlur' />
   </div>
-  <div class='errormessage' *ngIf='appInput.invalid'>
-    <app-display-message [messages]='appInput.errors.messages'></app-display-message>
+  <div class='errormessage'>
+    <app-display-message [key]='keyId'></app-display-message>
   </div>
 </div>
 <div *ngIf='showSession' class="sessioninput">

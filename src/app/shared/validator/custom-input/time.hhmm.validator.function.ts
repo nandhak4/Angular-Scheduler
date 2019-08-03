@@ -20,7 +20,7 @@ export const timeHHMMValidatorFunction = (control: FormControl, format: string):
         errorMessages.push(validateHours(hours), validateMinutes(minutes));
     }
 
-    if (errorMessages.length > 0 && errorMessages.some(x => x.length > 0)) {
+    if (errorMessages.some(x => x.length > 0)) {
         return { messages: errorMessages.filter(x => x.length > 0) };
     }
 };

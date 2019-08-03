@@ -6,3 +6,8 @@ export class Schedule {
     createdDate: Date;
     content?: any;
 }
+
+export interface Message {
+    key: string;
+    value: string[];
+}
