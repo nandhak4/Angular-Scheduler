@@ -5,9 +5,9 @@ import { appInputValidatorFunction } from '../validator/custom-input/appInput.va
 
 @Directive({
   selector: '[appInputType]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: InputTypeDirective, multi: true }]
+  providers: [{ provide: NG_VALIDATORS, useExisting: AppInputTypeDirective, multi: true }]
 })
-export class InputTypeDirective implements Validator {
+export class AppInputTypeDirective implements Validator {
 
   private get inputElement(): HTMLInputElement {
     return this.appSource !== null && this.appSource !== undefined && (this.appSource.nativeElement as HTMLInputElement) != null ?

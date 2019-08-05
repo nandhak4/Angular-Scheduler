@@ -9,7 +9,7 @@ import { DayComponent } from './day/day.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { SchedulebarComponent } from './schedulebar/schedulebar.component';
 import { CustomInputComponent } from './shared/components/custom-input/custom-input.component';
-import { InputTypeDirective } from './shared/directives/input-type.directive';
+import { AppInputTypeDirective } from './shared/directives/appInputType.directive';
 import { ScheduleEventComponent } from './schedule-event/schedule-event.component';
 import { DisplayMessageComponent } from './shared/components/display-message/display-message.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
@@ -23,7 +23,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     ScheduleComponent,
     SchedulebarComponent,
     CustomInputComponent,
-    InputTypeDirective,
+    AppInputTypeDirective,
     ScheduleEventComponent,
     DisplayMessageComponent,
     NavigationBarComponent

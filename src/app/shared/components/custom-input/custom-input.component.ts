@@ -45,13 +45,26 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
   }
 
   private customInputValue: string;
-  get CustomInputValue(): string {
+  public get CustomInputValue(): string {
     return this.customInputValue;
   }
-  set CustomInputValue(value: string) {
+  public set CustomInputValue(value: string) {
     this.customInputValue = value;
-    this.messageService.clearErrorMessage(this.keyId);
-    this.dataSource.emit(this.keyId + ':::' + this.customInputValue);
+    this.reset();
+    this.dataSource.emit(this.Data);
+  }
+
+  private isSessionAM = false;
+  public get IsSessionAM(): boolean {
+    return this.isSessionAM;
+  }
+  public set IsSessionAM(value: boolean) {
+    this.reset();
+    this.isSessionAM = value;
+  }
+
+  public get Data(): string {
+    return this.keyId + ':::' + this.CustomInputValue + (!this.showSession ? '' : this.isSessionAM ? ':00' : ':12');
   }
 
   updateOnBlur = { standalone: true, updateOn: 'blur' };
@@ -75,9 +88,14 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
 
   validate(control: AbstractControl): ValidationErrors {
     if (this.formControl && this.formControl.errors) {
-      this.messageService.showErrorMessage({ key: this.keyId, value: this.formControl.errors.messages });
+      this.displayError(this.formControl.errors.messages);
       return this.formControl.errors;
     }
   }
 
+  reset = () => this.messageService.clearErrorMessage(this.keyId);
+
+  displayError = (errorMessages: string[]) => this.messageService.showErrorMessage({ key: this.keyId, value: errorMessages });
+
+  setSession = (sessionType: number) => { this.IsSessionAM = sessionType > 0; this.dataSource.emit(this.Data); }
 }

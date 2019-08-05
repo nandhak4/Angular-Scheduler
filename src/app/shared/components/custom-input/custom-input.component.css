@@ -60,7 +60,9 @@ input::selection {
 .session {
   width: 30px;
   height: 15px;
-  background-color: orange;
+  
+  background-color: transparent;
+  /* background-color: orange; */
   font-size: 8px;
   font-weight: bold;
   display: flex;
@@ -77,7 +79,6 @@ input::selection {
 .pm {
   border: 1px solid black;
   border-collapse: collapse;
-  
   border-radius: 0px 7px 7px 0px;
   margin-left: -1px;
 }
@@ -88,6 +89,10 @@ input::selection {
 
 .pm:active {
   background-color: green;
+}
+
+.selected {
+  background-color: yellow;
 }
 
 .errormessage {
