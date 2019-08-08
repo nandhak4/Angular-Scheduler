@@ -1,4 +1,4 @@
-import { ValidationErrors, AbstractControl, ValidatorFn, FormControl, FormGroup } from '@angular/forms';
+import { ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 import { Message } from '../../schedule.model';
 
 export const ValidateScheduleEventTime = (date: string, time: string, showMessage: (message: Message) => void): ValidatorFn =>
@@ -22,15 +22,24 @@ export const ValidateScheduleEventTime = (date: string, time: string, showMessag
                 }
 
                 if (timeValue) {
-                    const [hour, minutes, session] = timeValue.split(':').map(x => +x);
+                    const [hour, minutes] = timeValue.substring(0, timeValue.includes(' ') ?
+                        timeValue.indexOf(' ') : timeValue.length).split(':').map(x => +x);
+
+                    const session = timeValue.includes('PM') ? 12 : 0;
+
+                    const selectedHour = (hour === 12 ? session === 0 ? 0 : hour : hour + session);
+
                     currentDate = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate(),
                         currentDateTime.getHours(), currentDateTime.getMinutes());
 
-                    if (new Date(year, month - 1, day, hour + session, minutes) < currentDate) {
+                    const currentHourToDisplay = (currentDateTime.getHours() > 12 ? currentDateTime.getHours() - 12 :
+                        currentDateTime.getHours() === 0 ? 12 : currentDateTime.getHours());
+
+                    if (new Date(year, month - 1, day, selectedHour, minutes) < currentDate) {
                         showMessage({
                             key: time,
-                            value: ['Time should be greater than ' + currentDate.getHours() + ':' +
-                                currentDate.getMinutes() + (session > 0 ? ' PM' : ' AM')
+                            value: ['Time should be greater than ' + currentHourToDisplay + ':' +
+                                currentDate.getMinutes() + (currentDateTime.getHours() > 11 ? ' PM' : ' AM')
                             ]
                         });
                         return { message: 'invalid time' };

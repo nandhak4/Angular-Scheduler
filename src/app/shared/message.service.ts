@@ -15,5 +15,7 @@ export class MessageService {
   public showErrorMessage = (message: Message): void => this.messageSource.next(message);
 
   public clearErrorMessage = (key: string): void => this.messageSource.next({ key, value: [] });
+
+  public clearAllErrorMessages = (): void => this.clearErrorMessage('ALL');
 }
 

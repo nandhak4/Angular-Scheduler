@@ -1,20 +1,27 @@
 .schedule-event {
-    margin: 50px auto;
-    width: 300px;
-    min-height: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  
-    border: 1px solid black;
-    box-sizing: content-box;
-  
-    font: 20px arial, sans-serif;
-  }
+  margin: 50px auto;
+  width: 300px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  .header {
-    width: inherit;
-    height: 10px;
-    background-color: red;
-    margin: -2% 0% 2% 0%
-  }
+  border: 1px solid black;
+  box-sizing: content-box;
+
+  font: 20px arial, sans-serif;
+}
+
+.header {
+  width: inherit;
+  height: 15px;
+  background-color: yellowgreen;
+  margin: -2% 0% 2% 0%;
+  padding-left: 5px;
+
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+  font: 9px arial, sans-serif;
+}

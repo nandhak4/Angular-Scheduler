@@ -14,7 +14,7 @@ const ValidateDay = (year: number, month: number, day: number): string =>
 
 export const dateYYYYMMDDValidatorFunction = (control: FormControl, format: string): ValidationErrors => {
 
-    if (format !== 'yyyy/mm/dd') {
+    if (format !== 'YYYY/MM/DD') {
         throw new Error('Validator mismatch error.');
     }
 

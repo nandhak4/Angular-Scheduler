@@ -4,6 +4,7 @@ import {
   AbstractControl, ValidationErrors, FormControl, NgModel
 } from '@angular/forms';
 import { MessageService } from '../../message.service';
+import { Data } from '../../schedule.model';
 
 @Component({
   selector: 'app-custom-input',
@@ -28,7 +29,7 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
   // tslint:disable-next-line: no-input-rename
   @Input('appTimePlaceholder') timeFormat: string;
 
-  @Output() dataSource = new EventEmitter<string>();
+  @Output() dataSource = new EventEmitter<Data>();
 
   @ViewChild('appInput', { static: false }) appInput: NgModel;
 
@@ -61,10 +62,13 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
   public set IsSessionAM(value: boolean) {
     this.reset();
     this.isSessionAM = value;
+    if (this.CustomInputValue.length > 0) {
+      this.dataSource.emit(this.Data);
+    }
   }
 
-  public get Data(): string {
-    return this.keyId + ':::' + this.CustomInputValue + (!this.showSession ? '' : this.isSessionAM ? ':00' : ':12');
+  public get Data(): Data {
+    return { key: this.keyId, value: this.CustomInputValue + (!this.showSession ? '' : this.isSessionAM ? ' AM' : ' PM') };
   }
 
   updateOnBlur = { standalone: true, updateOn: 'blur' };
@@ -97,5 +101,5 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor, Valid
 
   displayError = (errorMessages: string[]) => this.messageService.showErrorMessage({ key: this.keyId, value: errorMessages });
 
-  setSession = (sessionType: number) => { this.IsSessionAM = sessionType > 0; this.dataSource.emit(this.Data); }
+  setSession = (sessionType: number) => this.IsSessionAM = sessionType > 0;
 }

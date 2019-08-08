@@ -1,15 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, ValidationErrors } from '@angular/forms';
-import { ValidateScheduleEventTime } from '../shared/validator/schedule-event/schedule-event.validator.fucntion';
+import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import {
+  FormGroup, FormBuilder, ValidationErrors, Validator, NG_VALIDATORS, AbstractControl,
+  ControlValueAccessor, NG_VALUE_ACCESSOR, Validators
+} from '@angular/forms';
+import { ValidateScheduleEventTime } from '../shared/validator/schedule/schedule-event.validator.fucntion';
 import { MessageService } from '../shared/message.service';
-import { Message } from '../shared/schedule.model';
+import { Message, Data, CustomDate } from '../shared/schedule.model';
+import { ConvertToDate } from '../shared/util/date.converter';
+import { ConvertToTime } from '../shared/util/time.converter';
 
 @Component({
   selector: 'app-schedule-event',
   templateUrl: './schedule-event.component.html',
-  styleUrls: ['./schedule-event.component.css']
+  styleUrls: ['./schedule-event.component.css'],
+  providers: [
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => ScheduleEventComponent), multi: true },
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ScheduleEventComponent), multi: true }
+  ]
 })
-export class ScheduleEventComponent implements OnInit {
+export class ScheduleEventComponent implements OnInit, ControlValueAccessor, Validator {
+
+  @Input() scheduleEventId;
+
+  // tslint:disable-next-line: no-input-rename
+  @Input('scheduleEventLabel') headerLabel: string;
 
   // tslint:disable-next-line: no-input-rename
   @Input('scheduleEventDateLabel') dateLabel: string;
@@ -29,7 +43,10 @@ export class ScheduleEventComponent implements OnInit {
   // tslint:disable-next-line: no-input-rename
   @Input('scheduleEventTimeId') appTimeId: string;
 
+  @Output() dataSource = new EventEmitter<Data>();
+
   scheduleEvent: FormGroup;
+  dateSelected: string;
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService) { }
 
@@ -38,15 +55,57 @@ export class ScheduleEventComponent implements OnInit {
       [this.appDateId]: '',
       [this.appTimeId]: ''
     }, {
-        validators: [ValidateScheduleEventTime(this.appDateId, this.appTimeId, this.showMessage)]
+        validators: [ValidateScheduleEventTime(this.appDateId, this.appTimeId,
+          (message: Message): void => this.messageService.showErrorMessage(message))]
       });
   }
 
-  showMessage = (message: Message): void => this.messageService.showErrorMessage(message);
+  update(data: Data): void {
+    this.scheduleEvent.controls[data.key].setValue(data.value);
+    this.displayDate();
+  }
 
-  update(data: string): void {
-    const [key, value] = data.split(':::');
-    this.scheduleEvent.controls[key].setValue(value);
+  displayDate(): void {
+    if (this.scheduleEvent.valid) {
+      const date: string = this.scheduleEvent.get(this.appDateId).value;
+      const time: string = this.scheduleEvent.get(this.appTimeId).value;
+      if (date.length > 0 && time.length > 0) {
+        this.dataSource.emit(this.getScheduleEventData(date, time));
+        this.dateSelected = date + ' ' + time;
+      }
+    } else {
+      this.dateSelected = '';
+    }
+  }
+
+  getScheduleEventData(date: string, time: string): Data {
+    const dateValue: CustomDate = ConvertToDate(date, this.datePlaceholder);
+    const timeValue: CustomDate = ConvertToTime(time, this.timePlaceholder);
+    return {
+      key: this.scheduleEventId,
+      value: new Date(dateValue.year, dateValue.month, dateValue.day, timeValue.hour, timeValue.minutes)
+    };
+  }
+
+  get isDisplayDateValid(): boolean {
+    return this.dateSelected && this.dateSelected.length > 0;
+  }
+
+  writeValue(obj: any): void {
+
+  }
+  registerOnChange(fn: any): void {
+
+  }
+  registerOnTouched(fn: any): void {
+
+  }
+  setDisabledState?(isDisabled: boolean): void {
+
+  }
+
+  validate(control: AbstractControl): ValidationErrors {
+    return this.scheduleEvent && this.scheduleEvent.errors;
   }
 
 }

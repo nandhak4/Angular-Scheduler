@@ -8,7 +8,7 @@ export interface AppInputValidatorFunction {
 }
 
 export const appInputValidatorFunction: AppInputValidatorFunction = {
-    'yyyy/mm/dd' : dateYYYYMMDDValidatorFunction,
+    'YYYY/MM/DD': dateYYYYMMDDValidatorFunction,
     'hh:mm': timeHHMMValidatorFunction
 };
 

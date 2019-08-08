@@ -60,7 +60,7 @@ input::selection {
 .session {
   width: 30px;
   height: 15px;
-  
+
   background-color: transparent;
   /* background-color: orange; */
   font-size: 8px;
@@ -84,15 +84,15 @@ input::selection {
 }
 
 .am:active {
-  background-color: green;
+  background-color: yellow;
 }
 
 .pm:active {
-  background-color: green;
+  background-color: yellow;
 }
 
 .selected {
-  background-color: yellow;
+  background-color: green;
 }
 
 .errormessage {

@@ -31,5 +31,4 @@ export class ScheduleService {
     return this.originalSchedules;
   }
 
-
 }

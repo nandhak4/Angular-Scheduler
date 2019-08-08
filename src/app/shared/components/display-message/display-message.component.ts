@@ -18,7 +18,7 @@ export class DisplayMessageComponent implements OnInit {
   ngOnInit() {
     this.messageService.$messageSource.subscribe((message: Message) => {
 
-      if (message && message.key === this.key) {
+      if (message && (message.key === this.key || message.key === 'ALL')) {
         this.messages = message.value;
       }
     });

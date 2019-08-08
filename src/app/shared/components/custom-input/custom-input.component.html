@@ -3,13 +3,14 @@
     <label>{{labelName}}:</label>
   </div>
   <div class="inputItem">
-    <input appInputType #appInput='ngModel' [placeholder]='placeHolder' [(ngModel)]='CustomInputValue' [ngModelOptions]='updateOnBlur' />
+    <input [id]='keyId' appInputType #appInput='ngModel' [placeholder]='placeHolder' [(ngModel)]='CustomInputValue'
+      [ngModelOptions]='updateOnBlur' />
   </div>
   <div class='errormessage'>
     <app-display-message [key]='keyId'></app-display-message>
   </div>
 </div>
 <div *ngIf='showSession' class="sessioninput">
-    <div class="session am" [ngClass]="{'selected': IsSessionAM}" (click)='setSession(1)'>AM</div>
-    <div class="session pm" [ngClass]="{'selected': !IsSessionAM}" (click)='setSession(-1)'>PM</div>
+  <div class="session am" [ngClass]="{'selected': IsSessionAM}" (click)='setSession(1)'>AM</div>
+  <div class="session pm" [ngClass]="{'selected': !IsSessionAM}" (click)='setSession(-1)'>PM</div>
 </div>

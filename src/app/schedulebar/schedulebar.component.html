@@ -1,10 +1,16 @@
 <div class="schedulebar">
-  <form>
-    <app-schedule-event [scheduleEventDateLabel]="'From'" [sheduleEventDatePlaceholder]="'yyyy/mm/dd'" [scheduleEventDateId]="'FromDate'"
-      [scheduleEventTimeLabel]="'Time'" [scheduleEventTimePlaceholder]="'hh:mm'" [scheduleEventTimeId]="'FromTime'">
+  <form [formGroup]='scheduleInfo'>
+    <app-schedule-event [formControlName]='scheduleEventStartId' [scheduleEventId]='scheduleEventStartId'
+      [scheduleEventDateId]='scheduleFromDateEventId' [scheduleEventTimeId]='scheduleFromTimeEventId'
+      [scheduleEventLabel]="'Starts at: '" [scheduleEventDateLabel]="'From'" [scheduleEventTimeLabel]="'Time'"
+      [sheduleEventDatePlaceholder]="'YYYY/MM/DD'" [scheduleEventTimePlaceholder]="'hh:mm'"
+      (dataSource)='update($event)'>
     </app-schedule-event>
-    <app-schedule-event [scheduleEventDateLabel]="'To'" [sheduleEventDatePlaceholder]="'yyyy/mm/dd'" [scheduleEventDateId]="'ToDate'"
-      [scheduleEventTimeLabel]="'Time'" [scheduleEventTimePlaceholder]="'hh:mm'" [scheduleEventTimeId]="'ToTime'">
+    <app-schedule-event [formControlName]='scheduleEventEndId' [scheduleEventId]='scheduleEventEndId'
+      [scheduleEventDateId]='scheduleToDateEventId' [scheduleEventTimeId]='scheduleToTimeEventId'
+      [scheduleEventLabel]="'Ends at: '" [scheduleEventDateLabel]="'To'" [scheduleEventTimeLabel]="'Time'"
+      [sheduleEventDatePlaceholder]="'YYYY/MM/DD'" [scheduleEventTimePlaceholder]="'hh:mm'"
+      (dataSource)='update($event)'>
     </app-schedule-event>
   </form>
 </div>
