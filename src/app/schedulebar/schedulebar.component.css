@@ -1,5 +1,25 @@
 .schedulebar {
   width: 350px;
   margin: auto;
+  text-align: center;
 }
 
+.submitbutton {
+  height: 25px;
+  width: 300px;
+  border-radius: 10px;
+  border: 1px solid black;
+  border-image: none;
+  color: black;
+  background-color: green;
+  outline: none;
+}
+
+.submitbutton:disabled {
+  opacity: 0.2;
+}
+
+.submitbutton:active {
+  background-color: yellow;
+  border: 1px solid black;
+}

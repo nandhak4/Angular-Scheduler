@@ -49,4 +49,8 @@ export class SchedulebarComponent implements OnInit {
     this.scheduleInfo.controls[data.key].setValue(data.value);
   }
 
+  ScheduleUpdate() {
+    // alert('Welcome');
+  }
+
 }

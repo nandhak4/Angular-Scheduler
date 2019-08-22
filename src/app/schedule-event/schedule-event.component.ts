@@ -75,6 +75,7 @@ export class ScheduleEventComponent implements OnInit, ControlValueAccessor, Val
       }
     } else {
       this.dateSelected = '';
+      this.dataSource.emit({ key: this.scheduleEventId, value: null});
     }
   }
 

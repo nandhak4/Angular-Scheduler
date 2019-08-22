@@ -1,5 +1,5 @@
 <div class="schedulebar">
-  <form [formGroup]='scheduleInfo'>
+  <form [formGroup]='scheduleInfo' (submit)='ScheduleUpdate()'  >
     <app-schedule-event [formControlName]='scheduleEventStartId' [scheduleEventId]='scheduleEventStartId'
       [scheduleEventDateId]='scheduleFromDateEventId' [scheduleEventTimeId]='scheduleFromTimeEventId'
       [scheduleEventLabel]="'Starts at: '" [scheduleEventDateLabel]="'From'" [scheduleEventTimeLabel]="'Time'"
@@ -12,5 +12,6 @@
       [sheduleEventDatePlaceholder]="'YYYY/MM/DD'" [scheduleEventTimePlaceholder]="'hh:mm'"
       (dataSource)='update($event)'>
     </app-schedule-event>
+    <button class="submitbutton" type="submit" [disabled]='!scheduleInfo.valid'>Create Schedule</button>    
   </form>
 </div>
