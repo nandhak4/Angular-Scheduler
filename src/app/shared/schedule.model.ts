@@ -1,4 +1,5 @@
 export class Schedule {
+    scheduleId: string;
     fromDate: Date;
     fromTime: number;
     toDate: Date;
@@ -23,4 +24,12 @@ export interface CustomDate {
 export class Data {
     key: string;
     value: any;
+}
+
+export class ScheduleInfo {
+    Id: string;
+    begin: string;
+    end: string;
+    content?: any;
+    createdDate: Date;
 }

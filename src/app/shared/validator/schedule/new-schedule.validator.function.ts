@@ -6,12 +6,10 @@ export const ValidateNewSchedule =
         (schedule: FormGroup): ValidationErrors => {
             const startTime: Date = schedule.get(start).value;
             const endTime: Date = schedule.get(end).value;
-            // tslint:disable-next-line: no-debugger
-            debugger;
+
             if (schedule.valid && startTime && endTime) {
                 showMessage(null);
-                // tslint:disable-next-line: no-debugger
-                debugger;
+
                 if (new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getDate()) >
                     new Date(endTime.getFullYear(), endTime.getMonth(), endTime.getDate())) {
 

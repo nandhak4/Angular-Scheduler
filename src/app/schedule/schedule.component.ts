@@ -71,7 +71,7 @@ export class ScheduleComponent implements OnInit {
         }
         this.schedules.push({
           fromDate: schedule.fromDate, toDate: schedule.toDate, fromTime, toTime,
-          createdDate: schedule.createdDate, content: schedule.content
+          createdDate: schedule.createdDate, content: schedule.content, scheduleId: schedule.scheduleId
         });
       }
     }
