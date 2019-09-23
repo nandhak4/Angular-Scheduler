@@ -1,8 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Data, Message } from '../shared/schedule.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Data, Message, ScheduleInfo } from '../shared/schedule.model';
 import { ValidateNewSchedule } from '../shared/validator/schedule/new-schedule.validator.function';
 import { MessageService } from '../shared/message.service';
+import { ScheduleService } from '../schedule.service';
+import { CalendarSessionService } from '../calendar-session.service';
 
 @Component({
   selector: 'app-schedulebar',
@@ -25,12 +27,13 @@ export class SchedulebarComponent implements OnInit {
 
   scheduleEventEndId = 'End';
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService) { }
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService,
+              private scheduleService: ScheduleService, private calendarSessionService: CalendarSessionService) { }
 
   ngOnInit() {
     this.scheduleInfo = this.formBuilder.group({
-      [this.scheduleEventStartId]: '',
-      [this.scheduleEventEndId]: ''
+      [this.scheduleEventStartId]: null,
+      [this.scheduleEventEndId]: null
     }, {
         validators: [ValidateNewSchedule(this.scheduleEventStartId, this.scheduleEventEndId, this.scheduleToDateEventId,
           this.scheduleToTimeEventId, (message: Message) => this.ShowMessage(message))]
@@ -50,7 +53,15 @@ export class SchedulebarComponent implements OnInit {
   }
 
   ScheduleUpdate() {
-    // alert('Welcome');
+    alert('Schedule created');
+    this.scheduleService.createSchedule({
+      Id: null,
+      begin: this.scheduleInfo.controls[this.scheduleEventStartId].value,
+      end: this.scheduleInfo.controls[this.scheduleEventEndId].value,
+      content: null,
+      createdDate: new Date()
+    } as ScheduleInfo);
+    this.calendarSessionService.Refresh();
   }
 
 }

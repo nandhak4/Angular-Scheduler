@@ -5,6 +5,7 @@ export const ValidateScheduleEventTime = (date: string, time: string, showMessag
     (formGroup: FormGroup): ValidationErrors => {
         const [dateControl, timeControl] = [formGroup.controls[date], formGroup.controls[time]];
         if (dateControl.valid && timeControl.valid) {
+            showMessage(null);
             const [dateValue, timeValue] = [dateControl.value as string, timeControl.value as string];
 
             if (dateValue) {

@@ -12,7 +12,7 @@ export const ConvertToTime = (timeString: string, format: string): CustomDate =>
                 year: 0,
                 month: 0,
                 day: 0,
-                hour: +value[0] + (session === 'AM' ? 0 : 12),
+                hour: +value[0] + (session === 'AM' || +value[0] === 12 ? 0 : 12),
                 minutes: +value[1]
             };
         }

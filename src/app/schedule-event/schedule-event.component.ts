@@ -56,8 +56,16 @@ export class ScheduleEventComponent implements OnInit, ControlValueAccessor, Val
       [this.appTimeId]: ''
     }, {
         validators: [ValidateScheduleEventTime(this.appDateId, this.appTimeId,
-          (message: Message): void => this.messageService.showErrorMessage(message))]
+          (message: Message): void => this.ShowMessage(message))]
       });
+  }
+
+  ShowMessage(message: Message) {
+    if (message && message.key) {
+      this.messageService.showErrorMessage(message);
+    } else {
+      this.messageService.clearAllErrorMessages();
+    }
   }
 
   update(data: Data): void {

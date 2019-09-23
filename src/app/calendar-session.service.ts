@@ -205,4 +205,15 @@ export class CalendarSessionService {
   public GetNumberOfDaysInMonth(): number {
     return new Date(this.PassedYear, this.PassedMonth + 1, 0).getDate();
   }
+
+  public Refresh(): void {
+    if (this.ShowYear) {
+
+    } else if (this.showMonth) {
+
+    } else {
+      this.passedDateSource.next(this.PassedDate);
+    }
+
+  }
 }

@@ -23,9 +23,9 @@ export class ScheduleComponent implements OnInit {
 
   loadData(): void {
     this.hourWidthInPX = this.calendarSessionService.HourWidthInPX;
-    this.originalSchedule = this.scheduleService.getAllSchedules();
     this.calendarSessionService.passedDate$.subscribe(
       (passedDate) => {
+        this.originalSchedule = this.scheduleService.getAllSchedules();
         this.processOriginalSchedules();
         this.displaySchedules();
       });
